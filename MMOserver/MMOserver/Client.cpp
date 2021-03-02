@@ -26,25 +26,10 @@ void Client::initClient(std::map<std::string, std::string> cmd)
 	this->x = std::stod(cmd["x"]);
 	this->y = std::stod(cmd["y"]);
 	this->z = std::stod(cmd["z"]);
-	this->currency = std::stod(cmd["currency"]);
-	this->exp = std::stod(cmd["exp"]);
-	this->HP = std::stod(cmd["hp"]);
-	this->MP = std::stoi(cmd["mp"]);
-	this->attack = std::stod(cmd["attack"]);
-	this->critRate = std::stod(cmd["critRate"]);
-	this->critP = std::stod(cmd["critP"]);
-	this->defense = std::stod(cmd["defense"]);
-	this->clientClass = std::stoi(cmd["class"]);
-	this->level = std::stoi(cmd["level"]);
-	this->region = std::stoi(cmd["region"]);
-	this->isAlive = std::stoi(cmd["isAlive"]);
-	this->RE = std::stoi(cmd["re"]);
 	this->client_id = std::stoi(cmd["client_id"]);
 
 	std::vector<std::string> array = { "C_LOGIN_DATA", this->nickName, 
-		cmd["x"], cmd["y"], cmd["z"], cmd["currency"], cmd["exp"], cmd["hp"], cmd["mp"], cmd["attack"], cmd["critRate"], cmd["critP"], cmd["defense"],
-		cmd["class"], cmd["level"], cmd["region"], cmd["re"],
-		cmd["isAlive"]
+		cmd["x"], cmd["y"], cmd["z"]
 	};
 
 	data = packetBuilder(array);
@@ -72,27 +57,6 @@ void Client::clientWrite(std::string msg)
 void Client::saveClientToDatabase()
 {
 	std::vector<std::pair<std::string, std::string>> values;
-
-	values.push_back(std::make_pair((std::string)"x", std::to_string(this->x)));
-	values.push_back(std::make_pair((std::string)"y", std::to_string(this->y)));
-	values.push_back(std::make_pair((std::string)"z", std::to_string(this->z)));
-	values.push_back(std::make_pair((std::string)"region", std::to_string(this->region)));
-	values.push_back(std::make_pair((std::string)"currency", std::to_string(this->currency)));
-	values.push_back(std::make_pair((std::string)"class", std::to_string(this->clientClass)));
-	values.push_back(std::make_pair((std::string)"exp", std::to_string(this->exp)));
-	values.push_back(std::make_pair((std::string)"isAlive", std::to_string(this->isAlive)));
-
-	this->dataBase->update(this->nickName, "name", "users", values);
-	values.clear();
-
-	values.push_back(std::make_pair((std::string)"hp", std::to_string(this->HP)));
-	values.push_back(std::make_pair((std::string)"mp", std::to_string(this->MP)));
-	values.push_back(std::make_pair((std::string)"attack", std::to_string(this->attack)));
-	values.push_back(std::make_pair((std::string)"critRate", std::to_string(this->critRate)));
-	values.push_back(std::make_pair((std::string)"critP", std::to_string(this->critP)));
-	values.push_back(std::make_pair((std::string)"defense", std::to_string(this->defense)));
-	values.push_back(std::make_pair((std::string)"re", std::to_string(this->RE)));
-	this->dataBase->update(std::to_string(this->client_id), "user_id", "currentplayerstats", values);
 }
 
 /*

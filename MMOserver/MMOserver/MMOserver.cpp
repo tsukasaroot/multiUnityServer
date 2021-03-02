@@ -11,7 +11,7 @@ void runOpcodes(Server* server, std::vector<std::string> opcodes, std::string ip
 
 void checker(Server* server)
 {
-	server->clientChecks();
+	//server->clientChecks();
 }
 
 void saveWorld(Server* server)
@@ -85,20 +85,6 @@ int main(int argc, char* argv[])
 			memset(buffer, 0, buffLength);
 			line.clear();
 			opcodes.clear();
-		}
-
-		if (systemClock.now() - lastRunChecker >= std::chrono::seconds(1))
-		{
-			lastRunChecker += std::chrono::seconds(2);
-			std::thread threadChecker(checker, server);
-			threadChecker.detach();
-		}
-
-		if (systemClock.now() - lastRunSaveWorld >= std::chrono::seconds(59))
-		{
-			lastRunSaveWorld += std::chrono::seconds(59);
-			std::thread threadSaveWorld(saveWorld, server);
-			threadSaveWorld.detach();
 		}
 	}
 	return 0;
