@@ -1,0 +1,49 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+.vs
+MMOserver/x64/Release/MMOserver.pdb
+MMOserver/x64/Release/MMOserver.ipdb
+MMOserver/x64/Release/MMOserver.iobj
+MMOserver/MMOserver/x64/Release/vc142.pdb
+MMOserver/MMOserver/x64/Release/MMOserver.tlog/MMOserver.write.1u.tlog
+MMOserver/MMOserver/x64/Release/MMOserver.tlog/link.read.1.tlog
+MMOserver/MMOserver/x64/Release/MMOserver.tlog/CL.write.1.tlog
+MMOserver/MMOserver/x64/Release/MMOserver.tlog/CL.read.1.tlog
+MMOserver/MMOserver/x64/Release/MMOserver.tlog/CL.command.1.tlog
+MMOserver/MMOserver/x64/Release/MMOserver.log
+MMOserver/MMOserver/x64/Release/MMOserver.Build.CppClean.log
+*.pdb
+*.ipdb
+*.iobj
+*.tlog
+*.log
+*.recipe

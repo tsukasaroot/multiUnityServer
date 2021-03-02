@@ -1,0 +1,19 @@
+<mySQL>
+	<database>
+		<theseed/>
+	</database>
+	<hostName>
+		<127.0.0.1/>
+	</hostName>
+	<port>
+		<3306/>
+	</port>
+	<username>
+		<root/>
+	</username>
+	<password>
+	</password>
+	<reconnect>
+		<true/>
+	</reconnect>
+</mySQL>

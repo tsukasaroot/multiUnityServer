@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Fichiers sources\Database">
+      <UniqueIdentifier>{8f01be2a-702a-4849-acaa-df4b6a15f8c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Database">
+      <UniqueIdentifier>{be476d10-79c1-4b5f-aafe-a74e1541a443}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\xmlParser">
+      <UniqueIdentifier>{05e94d45-91de-4156-ad2a-3a58befaf905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\xmlParser">
+      <UniqueIdentifier>{22985040-3e0a-4f45-9edf-e93bff201d60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\OPCodes">
+      <UniqueIdentifier>{3612a81a-fc46-459c-8deb-cc3aaac85f3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Managers">
+      <UniqueIdentifier>{2cb80a9e-227b-42ee-82b8-b7f4af82e8b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Managers">
+      <UniqueIdentifier>{66389b99-84e0-4ff6-ac4d-b7ed1a8449f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Server">
+      <UniqueIdentifier>{1942d09f-5c5d-403b-9e83-8accb033b184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Server">
+      <UniqueIdentifier>{490301e6-402e-4298-aa4c-bbb40fa34aea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Client">
+      <UniqueIdentifier>{3616f26a-6e63-4d2c-8040-aa0745767fa9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SQLmanager.cpp">
+      <Filter>Fichiers sources\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="xmlParser.cpp">
+      <Filter>Fichiers sources\xmlParser</Filter>
+    </ClCompile>
+    <ClCompile Include="stringFormatting.cpp">
+      <Filter>Fichiers sources\xmlParser</Filter>
+    </ClCompile>
+    <ClCompile Include="clientAuth.cpp">
+      <Filter>Fichiers sources\OPCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Opcodes.cpp">
+      <Filter>Fichiers sources\OPCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="inventoryManager.cpp">
+      <Filter>Fichiers sources\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="npcSpawner.cpp">
+      <Filter>Fichiers sources\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="itemManager.cpp">
+      <Filter>Fichiers sources\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="messageManager.cpp">
+      <Filter>Fichiers sources\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="MMOserver.cpp">
+      <Filter>Fichiers sources\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Fichiers sources\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Fichiers sources\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Fichiers sources\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="message.cpp">
+      <Filter>Fichiers sources\OPCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="skillManager.cpp">
+      <Filter>Fichiers sources\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="queriesToClient.cpp">
+      <Filter>Fichiers sources\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="clientGets.cpp">
+      <Filter>Fichiers sources\OPCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>Fichiers sources\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="AIManager.cpp">
+      <Filter>Fichiers sources\Managers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Client.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="SQLmanager.h">
+      <Filter>Fichiers d%27en-tête\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="xmlParser.h">
+      <Filter>Fichiers d%27en-tête\xmlParser</Filter>
+    </ClInclude>
+    <ClInclude Include="messageManager.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="inventoryManager.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="npcSpawner.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.h">
+      <Filter>Fichiers d%27en-tête\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="itemManager.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="skillManager.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="AIManager.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

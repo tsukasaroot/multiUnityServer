@@ -1,0 +1,8 @@
+<Server>
+	<port>
+		<16384/>
+	</port>
+	<abnormalitiesTolerance>
+		<10/>
+	</abnormalitiesTolerance>
+</Server>

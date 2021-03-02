@@ -1,0 +1,6 @@
+<items>
+	<healthPotion power="12" cooldown="15"/>
+	<savage>
+		<test power="11"/>
+	</savage>
+</items>
