@@ -95,7 +95,6 @@ void SQLManager::get(std::string table, std::vector<std::string> fields, std::ve
 		if (i + 1 != where.size() && i + 1 != columnName.size())
 			query += " AND ";
 	}
-	std::cout << query << std::endl;
 	try
 	{
 		stmt = con->createStatement();
@@ -147,53 +146,12 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 
 		while (res->next())
 		{
-			result.insert(std::pair<std::string, std::string>("x", std::to_string(res->getDouble("x"))));
-			result.insert(std::pair<std::string, std::string>("y", std::to_string(res->getDouble("y"))));
-			result.insert(std::pair<std::string, std::string>("z", std::to_string(res->getDouble("z"))));
-			result.insert(std::pair<std::string, std::string>("class", std::to_string(res->getInt("class"))));
-			result.insert(std::pair<std::string, std::string>("region", std::to_string(res->getInt("region"))));
-			result.insert(std::pair<std::string, std::string>("level", std::to_string(res->getInt("level"))));
-			result.insert(std::pair<std::string, std::string>("currency", std::to_string(res->getDouble("currency"))));
-			result.insert(std::pair<std::string, std::string>("exp", std::to_string(res->getDouble("exp"))));
-			result.insert(std::pair<std::string, std::string>("isAlive", std::to_string(res->getBoolean("isAlive"))));
 			result.insert(std::pair<std::string, std::string>("client_id", std::to_string(res->getInt("player_id"))));
 			id = res->getInt("player_id");
 		}
 
 		delete res;
 		delete stmt;
-
-		sql::Statement* stmt;
-		sql::ResultSet* res;
-		std::string query = "SELECT * FROM currentplayerstats WHERE user_id = '" + std::to_string(id) + "'";
-
-		try
-		{
-			stmt = con->createStatement();
-			res = stmt->executeQuery(query);
-			while (res->next())
-			{
-				result.insert(std::pair<std::string, std::string>("hp", std::to_string(res->getDouble("hp"))));
-				result.insert(std::pair<std::string, std::string>("mp", std::to_string(res->getDouble("mp"))));
-				result.insert(std::pair<std::string, std::string>("attack", std::to_string(res->getDouble("attack"))));
-				result.insert(std::pair<std::string, std::string>("critRate", std::to_string(res->getDouble("critRate"))));
-				result.insert(std::pair<std::string, std::string>("critP", std::to_string(res->getDouble("critP"))));
-				result.insert(std::pair<std::string, std::string>("defense", std::to_string(res->getDouble("defense"))));
-				result.insert(std::pair<std::string, std::string>("re", std::to_string(res->getDouble("re"))));
-			}
-
-			delete res;
-			delete stmt;
-		}
-		catch (sql::SQLException& e)
-		{
-			std::cout << "# ERR: SQLException in " << __FILE__;
-			std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
-			std::cout << "# ERR: " << e.what();
-			std::cout << " (MySQL error code: " << e.getErrorCode();
-			std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
-			exit(0);
-		}
 
 		return result;
 	}
