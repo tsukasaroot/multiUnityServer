@@ -23,17 +23,17 @@ void Client::initClient(std::map<std::string, std::string> cmd)
 {
 	std::string data;
 
-	this->x = std::stod(cmd["x"]);
+	/*this->x = std::stod(cmd["x"]);
 	this->y = std::stod(cmd["y"]);
-	this->z = std::stod(cmd["z"]);
+	this->z = std::stod(cmd["z"]);*/
 	this->client_id = std::stoi(cmd["client_id"]);
 
-	std::vector<std::string> array = { "C_LOGIN_DATA", this->nickName, 
+	/*std::vector<std::string> array = { "C_LOGIN_DATA", this->nickName, 
 		cmd["x"], cmd["y"], cmd["z"]
 	};
 
 	data = packetBuilder(array);
-	this->clientWrite(data);
+	this->clientWrite(data);*/
 }
 
 void Client::closeClient()

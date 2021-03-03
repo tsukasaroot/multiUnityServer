@@ -44,7 +44,7 @@ void Server::login(std::vector<std::string> cmd)
 			_client[login]->initClient(cmd[2], result["name"], this->serverRCV, this->dataBase, cmd[3]);
 
 			auto datas = this->dataBase->initPlayer(login);
-			_client[login]->initClient(datas);
+			//_client[login]->initClient(datas);
 			return;
 		}
 	}

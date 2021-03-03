@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 	std::chrono::system_clock::time_point lastRunChecker = systemClock.now();
 	std::chrono::system_clock::time_point lastRunSaveWorld = systemClock.now();
 
-	std::thread npcThread(createNPC, server);
+	//std::thread npcThread(createNPC, server);
 
 	while (1)
 	{
