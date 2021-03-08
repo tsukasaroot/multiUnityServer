@@ -19,12 +19,15 @@ void Server::addRoom(std::vector<std::string> cmd)
 			this->_client[cmd[1]]->clientWrite(toSend);
 
 			this->_client[cmd[0]]->setIfInviteSent(true);
+
+			std::cout << "Invitation sent..." << std::endl;
 		}
 		else
 		{
 			std::vector<std::string> array = { "C_ACCEPT_INVITATION", cmd[1], "undefined" };
 			auto toSend = packetBuilder(array);
 			this->_client[cmd[0]]->clientWrite(toSend);
+			std::cout << "Player doesn't exist..." << std::endl;
 		}
 	}
 }
@@ -46,7 +49,9 @@ void Server::joinRoom(std::vector<std::string> cmd)
 				auto room = this->_client[cmd[1]]->getRoom();
 				this->_client[cmd[0]]->setRoom(room);
 
-				this->_client[cmd[0]]->setIfInviteSent(false);
+				this->_client[cmd[1]]->setIfInviteSent(false);
+
+				std::cout << "Accepted..." << std::endl;
 			}
 			else if (cmd[2] == "false")
 			{
