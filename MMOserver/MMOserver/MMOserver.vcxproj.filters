@@ -102,6 +102,9 @@
     <ClCompile Include="AIManager.cpp">
       <Filter>Fichiers sources\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>Fichiers sources\OPCodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">

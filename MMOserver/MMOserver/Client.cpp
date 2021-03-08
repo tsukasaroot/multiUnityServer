@@ -23,22 +23,12 @@ void Client::initClient(std::map<std::string, std::string> cmd)
 {
 	std::string data;
 
-	/*this->x = std::stod(cmd["x"]);
-	this->y = std::stod(cmd["y"]);
-	this->z = std::stod(cmd["z"]);*/
 	this->client_id = std::stoi(cmd["client_id"]);
-
-	/*std::vector<std::string> array = { "C_LOGIN_DATA", this->nickName, 
-		cmd["x"], cmd["y"], cmd["z"]
-	};
-
-	data = packetBuilder(array);
-	this->clientWrite(data);*/
 }
 
 void Client::closeClient()
 {
-	saveClientToDatabase();
+	//saveClientToDatabase();
 	std::cout << "Client logged out: " << this->nickName << std::endl;
 }
 
@@ -62,6 +52,16 @@ void Client::saveClientToDatabase()
 /*
 ** Setters method
 */
+
+void Client::setIfInviteSent(bool invite)
+{
+	this->invitationSent = invite;
+}
+
+void Client::setRoom(int room)
+{
+	this->inRoomNumber = room;
+}
 
 void Client::setPositionQuery(std::vector<std::string> cmd)
 {
@@ -99,6 +99,16 @@ void Client::setPositionQuery(std::vector<std::string> cmd)
 /*
 ** Getters method
 */
+
+bool Client::getIfInviteSent()
+{
+	return this->invitationSent;
+}
+
+int Client::getRoom()
+{
+	return this->inRoomNumber;
+}
 
 int Client::getAbnormalities()
 {

@@ -27,6 +27,7 @@ SQLManager::SQLManager()
 	{
 		driver = get_driver_instance();
 		this->con = driver->connect(connection_properties);
+		std::cout << "-------------------------------------------------------------------------------------------------------" << std::endl;
 		std::cout << "SQLManager initialiazed" << std::endl;
 	}
 	catch (sql::SQLException e)

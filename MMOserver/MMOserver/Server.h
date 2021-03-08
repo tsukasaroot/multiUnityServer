@@ -23,7 +23,7 @@ class Server {
 public:
 	Server();
 	void processOpcodes(std::vector<std::string> opcodes, std::string ip);
-	void clientChecks();
+	//void clientChecks();
 	void saveWorld();
 	void createAI();
 
@@ -94,6 +94,10 @@ private:
 
 	void getPosition(std::vector<std::string> cmd);
 
+	void addRoom(std::vector<std::string> cmd);
+
+	void joinRoom(std::vector<std::string> cmd);
+
 	void Opcodesinitialize();
 	void closeServer();
 
@@ -112,6 +116,7 @@ private:
 	SQLManager *dataBase;
 
 	int abnormalitiesTolerance = 10;
+	std::vector<std::pair<size_t, std::vector<std::string>>> playerRoom;
 };
 
 #endif

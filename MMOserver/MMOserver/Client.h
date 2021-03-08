@@ -28,9 +28,13 @@ public:
 	double getX();
 	double getY();
 	double getZ();
+	int getRoom();
+	bool getIfInviteSent();
 
 	void setPositionQuery(std::vector<std::string> cmd);
 	void saveClientToDatabase();
+	void setRoom(int room);
+	void setIfInviteSent(bool invite);
 
 	std::string getAll();
 	std::string getProfile();
@@ -50,7 +54,9 @@ private:
 	bool isAlive = true;
 
 	int abnormal = 0, modifier = 1;
-	float movementTolerance = 6.1;
+	double movementTolerance = 6.1;
+	int inRoomNumber = 0;
+	bool invitationSent = false;
 
 	inventoryManager* inventory;
 	SQLManager* dataBase;
