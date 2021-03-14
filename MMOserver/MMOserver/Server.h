@@ -100,6 +100,8 @@ private:
 
 	void destroyRoom(std::vector<std::string> cmd);
 
+	void startGame(std::vector<std::string> cmd);
+
 	void Opcodesinitialize();
 	void closeServer();
 

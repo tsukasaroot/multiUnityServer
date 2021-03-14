@@ -53,6 +53,11 @@ void Client::saveClientToDatabase()
 ** Setters method
 */
 
+void Client::setHost()
+{
+	this->isHost = !this->isHost;
+}
+
 void Client::setIfInviteSent(bool invite)
 {
 	this->invitationSent = invite;
@@ -99,6 +104,11 @@ void Client::setPositionQuery(std::vector<std::string> cmd)
 /*
 ** Getters method
 */
+
+bool Client::getHost()
+{
+	return this->isHost;
+}
 
 bool Client::getIfInviteSent()
 {

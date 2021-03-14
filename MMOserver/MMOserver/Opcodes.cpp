@@ -17,6 +17,7 @@ void Server::Opcodesinitialize()
 	list.insert(std::pair<std::string, opcodes>("S_SENDROOM_INVITATION", &Server::addRoom));
 	list.insert(std::pair<std::string, opcodes>("S_JOINROOM", &Server::joinRoom));
 	list.insert(std::pair<std::string, opcodes>("S_DESTROY_ROOM", &Server::destroyRoom));
+	list.insert(std::pair<std::string, opcodes>("S_START_GAME", &Server::startGame));
 
 	std::cout << "-------------------------------------------------------------------------------------------------------" << std::endl << std::endl;
 

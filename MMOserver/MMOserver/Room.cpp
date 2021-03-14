@@ -23,6 +23,7 @@ void Server::addRoom(std::vector<std::string> cmd)
 
 			this->playerRoom.push_back(std::make_pair(room, host));
 			this->_client[cmd[0]]->setRoom(room);
+			this->_client[cmd[0]]->setHost();
 
 			std::vector<std::string> array = { "C_SENDROOM_INVITATION", this->_client[cmd[0]]->getNickName(), std::to_string(this->_client[cmd[0]]->getRoom()) };
 
@@ -52,13 +53,17 @@ void Server::joinRoom(std::vector<std::string> cmd)
 {
 	if (checkAll(5, cmd, &this->playerList))
 	{
+		// cmd[0] == host
+		// cmd[1] == client
+		// to refactor for better comprehension
+
 		auto searchForHost = std::find(this->playerList.begin(), this->playerList.end(), cmd[0]);
 
 		if (searchForHost != this->playerList.end())
 		{
 			if (cmd[2] == "true" && this->_client[cmd[0]]->getIfInviteSent() == true)
 			{
-				std::vector<std::string> player = { cmd[0] };
+				std::vector<std::string> player = { cmd[1] };
 
 				std::vector<std::string> array = { "C_ACCEPT_INVITATION", this->_client[cmd[1]]->getNickName(), cmd[2] };
 				auto toSend = packetBuilder(array);
@@ -69,7 +74,6 @@ void Server::joinRoom(std::vector<std::string> cmd)
 
 				this->playerRoom.push_back(std::make_pair(room, player));
 
-				this->_client[cmd[1]]->setIfInviteSent(false);
 				this->_client[cmd[0]]->setIfInviteSent(false);
 
 				std::cout << "accepted by..." << this->_client[cmd[1]]->getNickName() << " host request..." << this->_client[cmd[0]]->getNickName() << std::endl;
@@ -102,4 +106,21 @@ void Server::destroyRoom(std::vector<std::string> cmd)
 	/*auto room = this->_client[cmd[0]]->getRoom();
 	this->_client[cmd[0]]->setRoom(0);
 	this->playerRoom[room];*/
+}
+
+void Server::startGame(std::vector<std::string> cmd)
+{
+	if (checkAll(4, cmd, &this->playerList))
+	{
+		if (this->_client[cmd[0]]->getHost())
+		{
+			std::cout << "starting game..." << std::endl;
+
+			auto guest = this->playerRoom[this->_client[cmd[0]]->getRoom()].second.back();
+
+			std::vector<std::string> array = { "C_HOST_START_GAME", cmd[1] };
+			auto toSend = packetBuilder(array);
+			this->_client[guest]->clientWrite(toSend);
+		}
+	}
 }
