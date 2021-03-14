@@ -11,18 +11,18 @@ void Server::addRoom(std::vector<std::string> cmd)
 			return;
 		}
 
-		if (this->_client[cmd[0]]->getRoom() > 0 && this->_client[cmd[1]]->getRoom() > 0)
-		{
-			return;
-		}
-
 		if (searchForGuest != this->playerList.end() && this->_client[cmd[0]]->getNickName() != this->_client[cmd[1]]->getNickName())
 		{
+			if (this->_client[cmd[0]]->getRoom() > 0 && this->_client[cmd[1]]->getRoom() > 0)
+			{
+				return;
+			}
+
 			std::vector<std::string> host = { cmd[0] };
 			size_t room = this->playerRoom.size() + 1;
 
 			this->playerRoom.push_back(std::make_pair(room, host));
-			this->_client[cmd[0]]->setRoom(this->playerRoom.size());
+			this->_client[cmd[0]]->setRoom(room);
 
 			std::vector<std::string> array = { "C_SENDROOM_INVITATION", this->_client[cmd[0]]->getNickName(), std::to_string(this->_client[cmd[0]]->getRoom()) };
 
@@ -64,8 +64,8 @@ void Server::joinRoom(std::vector<std::string> cmd)
 				auto toSend = packetBuilder(array);
 				this->_client[cmd[0]]->clientWrite(toSend);
 
-				auto room = this->_client[cmd[1]]->getRoom();
-				this->_client[cmd[0]]->setRoom(room);
+				auto room = this->_client[cmd[0]]->getRoom();
+				this->_client[cmd[1]]->setRoom(room);
 
 				this->playerRoom.push_back(std::make_pair(room, player));
 
