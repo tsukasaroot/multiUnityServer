@@ -19,14 +19,19 @@ void Server::addRoom(std::vector<std::string> cmd)
 		if (searchForGuest != this->playerList.end() && this->_client[cmd[0]]->getNickName() != this->_client[cmd[1]]->getNickName())
 		{
 			std::vector<std::string> host = { cmd[0] };
-			size_t size = this->playerRoom.size() + 1;
+			size_t room = this->playerRoom.size() + 1;
 
-			this->playerRoom.push_back(std::make_pair(size, host));
+			this->playerRoom.push_back(std::make_pair(room, host));
 			this->_client[cmd[0]]->setRoom(this->playerRoom.size());
 
 			std::vector<std::string> array = { "C_SENDROOM_INVITATION", this->_client[cmd[0]]->getNickName(), std::to_string(this->_client[cmd[0]]->getRoom()) };
+
 			auto toSend = packetBuilder(array);
 			this->_client[cmd[1]]->clientWrite(toSend);
+
+			std::vector<std::string> arrayHost = { "C_DEFINE_ROOM_HOST", std::to_string(this->_client[cmd[0]]->getRoom()) };
+			toSend = packetBuilder(arrayHost);
+			this->_client[cmd[0]]->clientWrite(toSend);
 
 			this->_client[cmd[0]]->setIfInviteSent(true);
 
