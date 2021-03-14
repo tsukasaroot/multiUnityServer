@@ -98,6 +98,8 @@ private:
 
 	void joinRoom(std::vector<std::string> cmd);
 
+	void destroyRoom(std::vector<std::string> cmd);
+
 	void Opcodesinitialize();
 	void closeServer();
 

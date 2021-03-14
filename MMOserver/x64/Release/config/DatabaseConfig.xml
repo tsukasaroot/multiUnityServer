@@ -1,6 +1,6 @@
 <mySQL>
 	<database>
-		<theseed/>
+		<unitymodule/>
 	</database>
 	<hostName>
 		<127.0.0.1/>
@@ -12,6 +12,7 @@
 		<root/>
 	</username>
 	<password>
+		<123456/>
 	</password>
 	<reconnect>
 		<true/>

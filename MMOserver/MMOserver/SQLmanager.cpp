@@ -136,7 +136,7 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 {
 	sql::Statement *stmt;
 	sql::ResultSet *res;
-	std::string query = "SELECT * FROM users WHERE name = '" + nickName + "'";
+	std::string query = "SELECT * FROM accounts WHERE name = '" + nickName + "'";
 	std::map<std::string, std::string> result;
 	int id = 0;
 
@@ -147,8 +147,7 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 
 		while (res->next())
 		{
-			result.insert(std::pair<std::string, std::string>("client_id", std::to_string(res->getInt("player_id"))));
-			id = res->getInt("player_id");
+			result.insert(std::pair<std::string, std::string>("client_id", std::to_string(res->getInt("id"))));
 		}
 
 		delete res;

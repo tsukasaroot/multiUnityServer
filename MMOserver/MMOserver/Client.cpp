@@ -36,7 +36,7 @@ void Client::clientWrite(std::string msg)
 {
 	this->ipep.sin_family = AF_INET;
 	this->ipep.sin_addr.s_addr = inet_addr(this->clientAddress.c_str()); // Indique l'adresse IP du client qui a été push
-	this->ipep.sin_port = htons(16384);
+	this->ipep.sin_port = htons(this->port);
 	msg = msg + "0x12" + '\n';
 	strcpy_s(this->buffer, msg.c_str());
 	this->bytes = sendto(this->_client, this->buffer, strlen(this->buffer), 0, (struct sockaddr*)&this->ipep, sizeof(this->ipep));
