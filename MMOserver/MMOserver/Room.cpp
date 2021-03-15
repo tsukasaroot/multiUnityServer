@@ -63,7 +63,7 @@ void Server::joinRoom(Packet cmd)
 		{
 			if (cmd[2] == "true" && this->_client[cmd[0]]->getIfInviteSent() == true)
 			{
-				std::vector<std::string> player = { cmd[1] };
+				std::vector<std::string> player = { cmd[0] };
 
 				std::vector<std::string> array = { "C_ACCEPT_INVITATION", this->_client[cmd[1]]->getNickName(), cmd[2] };
 				auto toSend = packetBuilder(array);
@@ -106,15 +106,20 @@ void Server::destroyRoom(Packet cmd)
 	if (checkAll(3, cmd, &this->playerList))
 	{
 		auto room = this->_client[cmd[0]]->getRoom();
-		auto guest = this->playerRoom[room].second.back();
+
+		auto guest = (this->playerRoom[room].second.front() != cmd[0]) ? this->playerRoom[room].second.front() : this->playerRoom[room].second.back();
+		std::cout << this->playerRoom[room].second.front() << std::endl;
+		std::cout << this->playerRoom[room].second.back() << std::endl;
 
 		this->_client[cmd[0]]->setRoom(0);
 		this->_client[guest]->setRoom(0);
 		
-		Packet array = { "C_DEFINE_ROOM_HOST", "0" };
+		Packet array = { "C_DEFINE_ROOM", "0" };
 		auto toSend = packetBuilder(array);
 		this->_client[guest]->clientWrite(toSend);
+		std::cout << this->_client[guest]->getNickName() << std::endl;
 		this->_client[cmd[0]]->clientWrite(toSend);
+		std::cout << this->_client[cmd[0]]->getNickName() << std::endl;
 	}
 }
 
