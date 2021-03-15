@@ -28,7 +28,7 @@ bool checkAll(int size, std::vector<std::string> cmd, std::vector<std::string>* 
 	return false;
 }
 
-std::string packetBuilder(std::vector<std::string> requests)
+std::string packetBuilder(Packet requests)
 {
 	std::string result;
 

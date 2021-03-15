@@ -16,6 +16,8 @@
 * @return a boolean depending if all test succeed
 */
 
+typedef std::vector<std::string> Packet;
+
 std::map<std::string, std::vector<std::string>> stockXML(xmlParser* reader);
 bool checkAll(int size, std::vector<std::string> cmd, std::vector<std::string>* playerList);
 

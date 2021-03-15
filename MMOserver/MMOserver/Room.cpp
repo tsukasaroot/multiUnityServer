@@ -1,6 +1,6 @@
 #include "Server.h"
 
-void Server::addRoom(std::vector<std::string> cmd)
+void Server::addRoom(Packet cmd)
 {
 	if (checkAll(4, cmd, &this->playerList))
 	{
@@ -25,12 +25,12 @@ void Server::addRoom(std::vector<std::string> cmd)
 			this->_client[cmd[0]]->setRoom(room);
 			this->_client[cmd[0]]->setHost();
 
-			std::vector<std::string> array = { "C_SENDROOM_INVITATION", this->_client[cmd[0]]->getNickName(), std::to_string(this->_client[cmd[0]]->getRoom()) };
+			Packet array = { "C_SENDROOM_INVITATION", this->_client[cmd[0]]->getNickName(), std::to_string(this->_client[cmd[0]]->getRoom()) };
 
 			auto toSend = packetBuilder(array);
 			this->_client[cmd[1]]->clientWrite(toSend);
 
-			std::vector<std::string> arrayHost = { "C_DEFINE_ROOM_HOST", std::to_string(this->_client[cmd[0]]->getRoom()) };
+			Packet arrayHost = { "C_DEFINE_ROOM_HOST", std::to_string(this->_client[cmd[0]]->getRoom()) };
 			toSend = packetBuilder(arrayHost);
 			this->_client[cmd[0]]->clientWrite(toSend);
 
@@ -41,7 +41,7 @@ void Server::addRoom(std::vector<std::string> cmd)
 		}
 		else
 		{
-			std::vector<std::string> array = { "C_ACCEPT_INVITATION", cmd[1], "undefined" };
+			Packet array = { "C_ACCEPT_INVITATION", cmd[1], "undefined" };
 			auto toSend = packetBuilder(array);
 			this->_client[cmd[0]]->clientWrite(toSend);
 			std::cout << "Player doesn't exist..." << std::endl;
@@ -49,7 +49,7 @@ void Server::addRoom(std::vector<std::string> cmd)
 	}
 }
 
-void Server::joinRoom(std::vector<std::string> cmd)
+void Server::joinRoom(Packet cmd)
 {
 	if (checkAll(5, cmd, &this->playerList))
 	{
@@ -94,21 +94,31 @@ void Server::joinRoom(std::vector<std::string> cmd)
 		}
 		else
 		{
-			std::vector<std::string> array = { "C_ACCEPT_INVITATION", cmd[1], "undefined" };
+			Packet array = { "C_ACCEPT_INVITATION", cmd[1], "undefined" };
 			auto toSend = packetBuilder(array);
 			this->_client[cmd[0]]->clientWrite(toSend);
 		}
 	}
 }
 
-void Server::destroyRoom(std::vector<std::string> cmd)
+void Server::destroyRoom(Packet cmd)
 {
-	/*auto room = this->_client[cmd[0]]->getRoom();
-	this->_client[cmd[0]]->setRoom(0);
-	this->playerRoom[room];*/
+	if (checkAll(3, cmd, &this->playerList))
+	{
+		auto room = this->_client[cmd[0]]->getRoom();
+		auto guest = this->playerRoom[room].second.back();
+
+		this->_client[cmd[0]]->setRoom(0);
+		this->_client[guest]->setRoom(0);
+		
+		Packet array = { "C_DEFINE_ROOM_HOST", "0" };
+		auto toSend = packetBuilder(array);
+		this->_client[guest]->clientWrite(toSend);
+		this->_client[cmd[0]]->clientWrite(toSend);
+	}
 }
 
-void Server::startGame(std::vector<std::string> cmd)
+void Server::startGame(Packet cmd)
 {
 	if (checkAll(4, cmd, &this->playerList))
 	{
@@ -118,7 +128,7 @@ void Server::startGame(std::vector<std::string> cmd)
 
 			auto guest = this->playerRoom[this->_client[cmd[0]]->getRoom()].second.back();
 
-			std::vector<std::string> array = { "C_HOST_START_GAME", cmd[1] };
+			Packet array = { "C_HOST_START_GAME", cmd[1] };
 			auto toSend = packetBuilder(array);
 			this->_client[guest]->clientWrite(toSend);
 		}
