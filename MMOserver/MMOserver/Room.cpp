@@ -129,6 +129,7 @@ void Server::startGame(Packet cmd)
 			Packet array = { "C_HOST_START_GAME", cmd[1] };
 			auto toSend = packetBuilder(array);
 			this->_client[guest]->clientWrite(toSend);
+			this->_client[cmd[0]]->clientWrite(toSend);
 		}
 	}
 }
