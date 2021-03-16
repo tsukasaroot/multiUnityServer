@@ -9,6 +9,20 @@ void Server::logout(std::vector<std::string> cmd)
 
 		if (it != this->playerList.end())
 		{
+			size_t room = 0;
+
+			if (room = this->_client[nickName]->getRoom() > 0)
+			{
+				auto room = this->_client[cmd[0]]->getRoom();
+
+				this->_client[this->playerRoom[room][0]]->setRoom(0);
+				this->_client[this->playerRoom[room][1]]->setRoom(0);
+
+				Packet array = { "C_DEFINE_ROOM", "0" };
+				auto toSend = packetBuilder(array);
+				this->_client[this->playerRoom[room][0]]->clientWrite(toSend);
+				this->_client[this->playerRoom[room][1]]->clientWrite(toSend);
+			}
 			this->playerList.erase(it);
 			this->_client[nickName]->closeClient();
 			delete(this->_client[nickName]);

@@ -26,7 +26,6 @@ void Server::addRoom(Packet cmd)
 			this->_client[cmd[0]]->setHost();
 
 			Packet array = { "C_SENDROOM_INVITATION", this->_client[cmd[0]]->getNickName(), std::to_string(this->_client[cmd[0]]->getRoom()) };
-
 			auto toSend = packetBuilder(array);
 			this->_client[cmd[1]]->clientWrite(toSend);
 
