@@ -21,7 +21,7 @@ void Server::addRoom(Packet cmd)
 			std::vector<std::string> host = { cmd[0] };
 			size_t room = this->playerRoom.size() + 1;
 
-			this->playerRoom.push_back(std::make_pair(room, host));
+			this->playerRoom.insert(std::pair<size_t, std::vector<std::string>>(room, host));
 			this->_client[cmd[0]]->setRoom(room);
 			this->_client[cmd[0]]->setHost();
 
@@ -63,7 +63,6 @@ void Server::joinRoom(Packet cmd)
 		{
 			if (cmd[2] == "true" && this->_client[cmd[0]]->getIfInviteSent() == true)
 			{
-				std::vector<std::string> player = { cmd[0] };
 
 				std::vector<std::string> array = { "C_ACCEPT_INVITATION", this->_client[cmd[1]]->getNickName(), cmd[2] };
 				auto toSend = packetBuilder(array);
@@ -72,7 +71,7 @@ void Server::joinRoom(Packet cmd)
 				auto room = this->_client[cmd[0]]->getRoom();
 				this->_client[cmd[1]]->setRoom(room);
 
-				this->playerRoom.push_back(std::make_pair(room, player));
+				this->playerRoom[room].push_back(cmd[1]);
 
 				this->_client[cmd[0]]->setIfInviteSent(false);
 
@@ -107,19 +106,13 @@ void Server::destroyRoom(Packet cmd)
 	{
 		auto room = this->_client[cmd[0]]->getRoom();
 
-		auto guest = (this->playerRoom[room].second.front() != cmd[0]) ? this->playerRoom[room].second.front() : this->playerRoom[room].second.back();
-		std::cout << this->playerRoom[room].second.front() << std::endl;
-		std::cout << this->playerRoom[room].second.back() << std::endl;
-
-		this->_client[cmd[0]]->setRoom(0);
-		this->_client[guest]->setRoom(0);
+		this->_client[this->playerRoom[room][0]]->setRoom(0);
+		this->_client[this->playerRoom[room][1]]->setRoom(0);
 		
 		Packet array = { "C_DEFINE_ROOM", "0" };
 		auto toSend = packetBuilder(array);
-		this->_client[guest]->clientWrite(toSend);
-		std::cout << this->_client[guest]->getNickName() << std::endl;
-		this->_client[cmd[0]]->clientWrite(toSend);
-		std::cout << this->_client[cmd[0]]->getNickName() << std::endl;
+		this->_client[this->playerRoom[room][0]]->clientWrite(toSend);
+		this->_client[this->playerRoom[room][1]]->clientWrite(toSend);
 	}
 }
 
@@ -131,7 +124,7 @@ void Server::startGame(Packet cmd)
 		{
 			std::cout << "starting game..." << std::endl;
 
-			auto guest = this->playerRoom[this->_client[cmd[0]]->getRoom()].second.back();
+			auto guest = this->playerRoom[this->_client[cmd[0]]->getRoom()][1];
 
 			Packet array = { "C_HOST_START_GAME", cmd[1] };
 			auto toSend = packetBuilder(array);

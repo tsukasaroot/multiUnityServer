@@ -122,7 +122,7 @@ private:
 	SQLManager *dataBase;
 
 	int abnormalitiesTolerance = 10;
-	std::vector<std::pair<size_t, std::vector<std::string>>> playerRoom;
+	std::map<size_t, std::vector<std::string>> playerRoom;
 };
 
 #endif
