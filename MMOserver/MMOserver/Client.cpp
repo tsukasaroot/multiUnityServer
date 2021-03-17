@@ -53,6 +53,11 @@ void Client::saveClientToDatabase()
 ** Setters method
 */
 
+void Client::setIsReady()
+{
+	this->isReady = !this->isReady;
+}
+
 void Client::setHost()
 {
 	this->isHost = !this->isHost;
@@ -104,6 +109,11 @@ void Client::setPositionQuery(std::vector<std::string> cmd)
 /*
 ** Getters method
 */
+
+bool Client::getIsReady()
+{
+	return this->isReady;
+}
 
 bool Client::getHost()
 {

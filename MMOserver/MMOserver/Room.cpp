@@ -132,3 +132,32 @@ void Server::startGame(Packet cmd)
 		}
 	}
 }
+
+void Server::playerReady(Packet cmd)
+{
+	if (checkAll(3, cmd, &this->playerList))
+	{
+		auto host = this->playerRoom[this->_client[cmd[0]]->getRoom()][0];
+		auto guest = this->playerRoom[this->_client[cmd[0]]->getRoom()][1];
+
+		if (host == cmd[0] && !this->_client[host]->getIsReady())
+		{
+			this->_client[host]->setIsReady();
+			std::cout << host << " is ready" << std::endl;
+		}
+		else if (guest == cmd[0] && !this->_client[guest]->getIsReady())
+		{
+			this->_client[guest]->setIsReady();
+			std::cout << guest << " is ready" << std::endl;
+		}
+
+		if (this->_client[guest]->getIsReady() && this->_client[host]->getIsReady())
+		{
+			Packet array = { "C_COUNTDOWN_START", "1" };
+			auto toSend = packetBuilder(array);
+			this->_client[guest]->clientWrite(toSend);
+			this->_client[host]->clientWrite(toSend);
+			std::cout << "Countdown starting" << std::endl;
+		}
+	}
+}

@@ -96,13 +96,15 @@ private:
 
 	void getPosition(std::vector<std::string> cmd);
 
-	void addRoom(std::vector<std::string> cmd);
+	void addRoom(Packet cmd);
 
-	void joinRoom(std::vector<std::string> cmd);
+	void joinRoom(Packet cmd);
 
-	void destroyRoom(std::vector<std::string> cmd);
+	void destroyRoom(Packet cmd);
 
-	void startGame(std::vector<std::string> cmd);
+	void startGame(Packet cmd);
+
+	void playerReady(Packet cmd);
 
 	void Opcodesinitialize();
 	void closeServer();
