@@ -19,6 +19,7 @@ void Server::Opcodesinitialize()
 	list.insert(std::pair<std::string, opcodes>("S_DESTROY_ROOM", &Server::destroyRoom));
 	list.insert(std::pair<std::string, opcodes>("S_START_GAME", &Server::startGame));
 	list.insert(std::pair<std::string, opcodes>("S_READY", &Server::playerReady));
+	list.insert(std::pair<std::string, opcodes>("S_MOVEMENT", &Server::playerMovement));
 
 	std::cout << "-------------------------------------------------------------------------------------------------------" << std::endl << std::endl;
 

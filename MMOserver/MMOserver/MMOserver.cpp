@@ -14,9 +14,9 @@ void checker(Server* server)
 	//server->clientChecks();
 }
 
-void saveWorld(Server* server)
+void threadCheckCountdown(Server* server)
 {
-	server->saveWorld();
+	server->sendCountDown();
 }
 
 void createNPC(Server* server)
@@ -44,7 +44,6 @@ int main(int argc, char* argv[])
 	SOCKADDR_IN ipep = server->getIpep();
 
 	std::chrono::system_clock systemClock;
-	std::chrono::system_clock::time_point lastRunChecker = systemClock.now();
 	std::chrono::system_clock::time_point lastRunSaveWorld = systemClock.now();
 
 	//std::thread npcThread(createNPC, server);
@@ -85,6 +84,13 @@ int main(int argc, char* argv[])
 			memset(buffer, 0, buffLength);
 			line.clear();
 			opcodes.clear();
+		}
+		if (systemClock.now() - lastRunSaveWorld >= std::chrono::seconds(2))
+		{
+			lastRunSaveWorld += std::chrono::seconds(2);
+			std::thread threadCheckCountdown(threadCheckCountdown, server);
+			threadCheckCountdown.detach();
+			//threadCheckCountdown(server);
 		}
 	}
 	return 0;

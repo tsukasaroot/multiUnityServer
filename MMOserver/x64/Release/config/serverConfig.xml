@@ -5,4 +5,7 @@
 	<abnormalitiesTolerance>
 		<10/>
 	</abnormalitiesTolerance>
+	<debug>
+		<true/>
+	</debug>
 </Server>

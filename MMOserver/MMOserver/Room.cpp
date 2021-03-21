@@ -153,10 +153,9 @@ void Server::playerReady(Packet cmd)
 
 		if (this->_client[guest]->getIsReady() && this->_client[host]->getIsReady())
 		{
-			Packet array = { "C_COUNTDOWN_START", "1" };
-			auto toSend = packetBuilder(array);
-			this->_client[guest]->clientWrite(toSend);
-			this->_client[host]->clientWrite(toSend);
+			this->_client[host]->setIsOnCountdown(3);
+			this->_client[guest]->setIsOnCountdown(3);
+
 			std::cout << "Countdown starting" << std::endl;
 		}
 	}

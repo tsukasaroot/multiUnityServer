@@ -11,7 +11,8 @@
 #include <thread>
 #include <map>
 
-std::string packetBuilder(std::vector<std::string> requests);
+typedef std::vector<std::string> Packet;
+std::string packetBuilder(Packet requests);
 
 class Client {
 public:
@@ -32,6 +33,7 @@ public:
 	bool getIfInviteSent();
 	bool getHost();
 	bool getIsReady();
+	int getIfOnCountdown();
 
 	void setPositionQuery(std::vector<std::string> cmd);
 	void saveClientToDatabase();
@@ -39,6 +41,7 @@ public:
 	void setIfInviteSent(bool invite);
 	void setHost();
 	void setIsReady();
+	void setIsOnCountdown(int c);
 
 	std::string getAll();
 	std::string getProfile();
@@ -62,6 +65,7 @@ private:
 	int inRoomNumber = 0;
 	bool invitationSent = false;
 	bool isHost = false, isReady = false;
+	int onCountdown = 0;
 
 	inventoryManager* inventory;
 	SQLManager* dataBase;

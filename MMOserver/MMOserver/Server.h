@@ -32,6 +32,7 @@ public:
 	SOCKET getSocket();
 	struct timeval getTimeVal();
 	SOCKADDR_IN getIpep();
+	void sendCountDown();
 private:
 	std::map<std::string, std::vector<std::string>> getServerConfig();
 
@@ -106,6 +107,8 @@ private:
 
 	void playerReady(Packet cmd);
 
+	void playerMovement(Packet cmd);
+
 	void Opcodesinitialize();
 	void closeServer();
 
@@ -125,6 +128,8 @@ private:
 
 	int abnormalitiesTolerance = 10;
 	std::map<size_t, std::vector<std::string>> playerRoom;
+	
+	bool debug = false;
 };
 
 #endif

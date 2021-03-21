@@ -6,6 +6,7 @@ std::map<std::string, std::vector<std::string>> Server::getServerConfig()
 	auto config = stockXML(reader);
 
 	this->abnormalitiesTolerance = std::stoi(config["abnormalitiesTolerance"][0]);
+	//this->debug = std::stob
 
 	return config;
 }
@@ -62,6 +63,63 @@ void Server::closeServer()
 	else
 		std::cout << "WSACleanup  : OK" << std::endl;
 	exit(0);
+}
+
+void Server::sendCountDown()
+{
+	std::vector<size_t> roomDone;
+
+	for (auto it = this->_client.begin(); it != this->_client.end(); it++)
+	{
+		size_t room;
+		int countdown = it->second->getIfOnCountdown();
+		room = it->second->getRoom();
+
+		auto searchForRoom = std::find(roomDone.begin(), roomDone.end(), room);
+		
+		if (searchForRoom == roomDone.end())
+		{
+			roomDone.push_back(room);
+			if (countdown > 0 && countdown < 10)
+			{
+				auto player1 = this->playerRoom[room][0];
+				auto player2 = this->playerRoom[room][1];
+
+				Packet array = { "C_COUNTDOWN_START", std::to_string(countdown) };
+				auto toSend = packetBuilder(array);
+				this->_client[player1]->clientWrite(toSend);
+				this->_client[player2]->clientWrite(toSend);
+
+				std::cout << "sending " << countdown << " to " << player1 << " " << player2 << std::endl;
+
+				countdown--;
+
+				if (countdown == 0)
+					countdown = 10;
+
+				this->_client[player1]->setIsOnCountdown(countdown);
+				this->_client[player2]->setIsOnCountdown(countdown);
+			}
+			else if (countdown == 10)
+			{
+				Packet array = { "C_START" };
+				auto toSend = packetBuilder(array);
+
+				room = it->second->getRoom();
+
+				auto player1 = this->playerRoom[room][0];
+				auto player2 = this->playerRoom[room][1];
+
+				this->_client[player1]->clientWrite(toSend);
+				this->_client[player2]->clientWrite(toSend);
+
+				countdown = 0;
+
+				this->_client[player1]->setIsOnCountdown(countdown);
+				this->_client[player2]->setIsOnCountdown(countdown);
+			}
+		}
+	}
 }
 
 void Server::saveWorld()

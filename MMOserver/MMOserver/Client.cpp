@@ -53,6 +53,11 @@ void Client::saveClientToDatabase()
 ** Setters method
 */
 
+void Client::setIsOnCountdown(int c)
+{
+	this->onCountdown = c;
+}
+
 void Client::setIsReady()
 {
 	this->isReady = !this->isReady;
@@ -109,6 +114,11 @@ void Client::setPositionQuery(std::vector<std::string> cmd)
 /*
 ** Getters method
 */
+
+int Client::getIfOnCountdown()
+{
+	return this->onCountdown;
+}
 
 bool Client::getIsReady()
 {

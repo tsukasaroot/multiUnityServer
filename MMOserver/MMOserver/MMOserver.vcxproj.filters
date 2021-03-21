@@ -105,6 +105,9 @@
     <ClCompile Include="Room.cpp">
       <Filter>Fichiers sources\OPCodes</Filter>
     </ClCompile>
+    <ClCompile Include="movementManager.cpp">
+      <Filter>Fichiers sources\OPCodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">

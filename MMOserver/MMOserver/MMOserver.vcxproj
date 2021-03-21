@@ -173,6 +173,7 @@
     <ClCompile Include="message.cpp" />
     <ClCompile Include="messageManager.cpp" />
     <ClCompile Include="MMOserver.cpp" />
+    <ClCompile Include="movementManager.cpp" />
     <ClCompile Include="npcSpawner.cpp" />
     <ClCompile Include="Opcodes.cpp" />
     <ClCompile Include="queriesToClient.cpp" />
