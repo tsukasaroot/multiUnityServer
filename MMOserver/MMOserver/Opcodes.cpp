@@ -20,6 +20,7 @@ void Server::Opcodesinitialize()
 	list.insert(std::pair<std::string, opcodes>("S_START_GAME", &Server::startGame));
 	list.insert(std::pair<std::string, opcodes>("S_READY", &Server::playerReady));
 	list.insert(std::pair<std::string, opcodes>("S_MOVEMENT", &Server::playerMovement));
+	list.insert(std::pair<std::string, opcodes>("S_RACE_END", &Server::raceEndForOnePlayer));
 
 	std::cout << "-------------------------------------------------------------------------------------------------------" << std::endl << std::endl;
 

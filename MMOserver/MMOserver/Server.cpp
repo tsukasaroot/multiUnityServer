@@ -117,6 +117,9 @@ void Server::sendCountDown()
 
 				this->_client[player1]->setIsOnCountdown(countdown);
 				this->_client[player2]->setIsOnCountdown(countdown);
+
+				this->_client[player1]->setTimerBegin();
+				this->_client[player2]->setTimerBegin();
 			}
 		}
 	}

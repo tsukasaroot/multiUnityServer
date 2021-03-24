@@ -10,6 +10,7 @@
 #include <string>
 #include <thread>
 #include <map>
+#include <time.h>
 
 typedef std::vector<std::string> Packet;
 std::string packetBuilder(Packet requests);
@@ -34,7 +35,11 @@ public:
 	bool getHost();
 	bool getIsReady();
 	int getIfOnCountdown();
+	double getTimerDiff();
 
+	void setTimerDiff();
+	void setTimerBegin();
+	void setTimerEnd();
 	void setPositionQuery(std::vector<std::string> cmd);
 	void saveClientToDatabase();
 	void setRoom(int room);
@@ -71,6 +76,9 @@ private:
 	SQLManager* dataBase;
 
 	SOCKET _client = 0;
+
+	time_t begin, end;
+	double result;
 
 	WSADATA initialisation_win32; // Variable permettant de récupérer la structure d'information sur l'initialisation
 	int error = 0, tempo = 0, bytes = 0;

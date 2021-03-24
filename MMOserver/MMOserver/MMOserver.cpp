@@ -90,7 +90,6 @@ int main(int argc, char* argv[])
 			lastRunSaveWorld += std::chrono::seconds(2);
 			std::thread threadCheckCountdown(threadCheckCountdown, server);
 			threadCheckCountdown.detach();
-			//threadCheckCountdown(server);
 		}
 	}
 	return 0;

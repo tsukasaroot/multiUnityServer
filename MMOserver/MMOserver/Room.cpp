@@ -160,3 +160,8 @@ void Server::playerReady(Packet cmd)
 		}
 	}
 }
+
+void Server::raceEndForOnePlayer(Packet cmd)
+{
+
+}

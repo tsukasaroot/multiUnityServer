@@ -109,6 +109,8 @@ private:
 
 	void playerMovement(Packet cmd);
 
+	void raceEndForOnePlayer(Packet cmd);
+
 	void Opcodesinitialize();
 	void closeServer();
 
