@@ -53,19 +53,19 @@ void Client::saveClientToDatabase()
 ** Setters method
 */
 
-void Client::setTimerBegin()
+void Client::setInRace()
 {
-	time(&this->begin);
+	this->inRace = !this->inRace;
 }
 
-void Client::setTimerEnd()
+void Client::setTimerBegin()
 {
-	time(&this->end);
+	this->begin = clock();
 }
 
 void Client::setTimerDiff()
 {
-	this->result = difftime(this->end, this->begin);
+	this->result = float(clock() - this->begin) / CLOCKS_PER_SEC;
 }
 
 void Client::setIsOnCountdown(int c)
@@ -129,6 +129,11 @@ void Client::setPositionQuery(std::vector<std::string> cmd)
 /*
 ** Getters method
 */
+
+bool Client::getInRace()
+{
+	return this->inRace;
+}
 
 double Client::getTimerDiff()
 {

@@ -111,6 +111,8 @@ private:
 
 	void raceEndForOnePlayer(Packet cmd);
 
+	void playerleaveRace(Packet cmd);
+
 	void Opcodesinitialize();
 	void closeServer();
 

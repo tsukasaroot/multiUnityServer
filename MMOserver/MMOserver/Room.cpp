@@ -112,6 +112,14 @@ void Server::destroyRoom(Packet cmd)
 		auto toSend = packetBuilder(array);
 		this->_client[this->playerRoom[room][0]]->clientWrite(toSend);
 		this->_client[this->playerRoom[room][1]]->clientWrite(toSend);
+
+		array = { "C_LEAVE", "MainMenu" };
+		auto toSendToQuit = packetBuilder(array);
+		this->_client[this->playerRoom[room][0]]->clientWrite(toSendToQuit);
+		this->_client[this->playerRoom[room][1]]->clientWrite(toSendToQuit);
+
+		delete(&this->playerRoom[room]);
+		this->playerRoom.erase(room);
 	}
 }
 
@@ -163,5 +171,48 @@ void Server::playerReady(Packet cmd)
 
 void Server::raceEndForOnePlayer(Packet cmd)
 {
+	if (checkAll(3, cmd, &this->playerList))
+	{
+		this->_client[cmd[0]]->setTimerDiff();
+		auto result = this->_client[cmd[0]]->getTimerDiff();
 
+		Packet array = { "C_TIME", std::to_string(result) };
+		auto toSend = packetBuilder(array);
+		this->_client[cmd[0]]->clientWrite(toSend);
+	}
+}
+
+void Server::playerleaveRace(Packet cmd)
+{
+	if (checkAll(4, cmd, &this->playerList))
+	{
+		Packet array = { "C_LEAVE", cmd[1] };
+		auto toSend = packetBuilder(array);
+
+		auto room = this->_client[cmd[0]]->getRoom();
+
+		std::string player1 = this->playerRoom[room][0];
+		std::string player2 = this->playerRoom[room][1];
+
+		this->_client[player1]->clientWrite(toSend);
+		this->_client[player2]->clientWrite(toSend);
+
+		array = { "C_DEFINE_ROOM", "0" };
+		auto toSendDefineRoom = packetBuilder(array);
+
+		this->_client[player1]->setRoom(0);
+		this->_client[player1]->clientWrite(toSendDefineRoom);
+		this->_client[player1]->setInRace();
+
+		this->_client[player2]->setRoom(0);
+		this->_client[player2]->clientWrite(toSendDefineRoom);
+		this->_client[player2]->setInRace();
+
+		if (this->_client[player2]->getHost())
+			this->_client[player2]->setHost();
+		if (this->_client[player1]->getHost())
+			this->_client[player1]->setHost();
+	
+		this->playerRoom.erase(room);
+	}
 }

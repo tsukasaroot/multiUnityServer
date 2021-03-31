@@ -113,13 +113,16 @@ void Server::sendCountDown()
 				this->_client[player1]->clientWrite(toSend);
 				this->_client[player2]->clientWrite(toSend);
 
+				this->_client[player1]->setTimerBegin();
+				this->_client[player2]->setTimerBegin();
+
 				countdown = 0;
 
 				this->_client[player1]->setIsOnCountdown(countdown);
 				this->_client[player2]->setIsOnCountdown(countdown);
 
-				this->_client[player1]->setTimerBegin();
-				this->_client[player2]->setTimerBegin();
+				this->_client[player1]->setInRace();
+				this->_client[player2]->setInRace();
 			}
 		}
 	}
