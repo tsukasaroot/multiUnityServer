@@ -38,20 +38,15 @@ SQLManager::SQLManager()
 	}
 }
 
-void SQLManager::insert(std::string table, std::string column, std::vector<std::string> values)
+void SQLManager::insert(std::string table, std::string column, std::string values)
 {
-	sql::PreparedStatement* pstmt;
-	std::string query = "INSERT INTO " + table + "(" + column + ") VALUES(?)";
-	pstmt = con->prepareStatement(query);
+	sql::Statement* stmt;
+	std::string query = "INSERT INTO " + table + "(" + column + ") VALUES(" + values +")";
 
-	auto i = 1;
-	for (std::vector<std::string>::iterator it = values.begin(); it != values.end(); ++it)
-	{
-		pstmt->setString(1, *it);
-		pstmt->execute();
-	}
-	delete pstmt;
-	// TODO to optimize so it run in one batch
+	std::cout << query << std::endl;
+
+	stmt = con->createStatement();
+	stmt->executeUpdate(query);
 }
 
 void SQLManager::update(std::string user, std::string cond, std::string table, std::vector<std::pair<std::string, std::string>> values)
@@ -67,9 +62,21 @@ void SQLManager::update(std::string user, std::string cond, std::string table, s
 			query += ", ";
 	}
 	query += condition;
-
-	stmt = con->createStatement();
-	stmt->executeUpdate(query);
+		
+	try
+	{
+		stmt = con->createStatement();
+		stmt->executeUpdate(query);
+	}
+	catch (sql::SQLException& e)
+	{
+		std::cout << "# ERR: SQLException in " << __FILE__;
+		std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
+		std::cout << "# ERR: " << e.what();
+		std::cout << " (MySQL error code: " << e.getErrorCode();
+		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+		exit(0);
+	}
 	delete stmt;
 }
 

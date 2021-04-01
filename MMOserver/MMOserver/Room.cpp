@@ -179,6 +179,10 @@ void Server::raceEndForOnePlayer(Packet cmd)
 		Packet array = { "C_TIME", std::to_string(result) };
 		auto toSend = packetBuilder(array);
 		this->_client[cmd[0]]->clientWrite(toSend);
+
+		std::string values = "'" + cmd[0] + "'" +  ",'CityRace'," + "'" + std::to_string(result) + "'";
+
+		this->dataBase->insert("users", "name,map,score", values);
 	}
 }
 
