@@ -171,7 +171,7 @@ void Server::playerReady(Packet cmd)
 
 void Server::raceEndForOnePlayer(Packet cmd)
 {
-	if (checkAll(3, cmd, &this->playerList))
+	if (checkAll(4, cmd, &this->playerList))
 	{
 		this->_client[cmd[0]]->setTimerDiff();
 		auto result = this->_client[cmd[0]]->getTimerDiff();
@@ -180,7 +180,7 @@ void Server::raceEndForOnePlayer(Packet cmd)
 		auto toSend = packetBuilder(array);
 		this->_client[cmd[0]]->clientWrite(toSend);
 
-		std::string values = "'" + cmd[0] + "'" +  ",'CityRace'," + "'" + std::to_string(result) + "'";
+		std::string values = "'" + cmd[0] + "'" +  ",'" + cmd[1] +"'," + "'" + std::to_string(result) + "'";
 
 		this->dataBase->insert("users", "name,map,score", values);
 	}
