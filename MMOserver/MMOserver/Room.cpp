@@ -113,10 +113,10 @@ void Server::destroyRoom(Packet cmd)
 		this->_client[this->playerRoom[room][0]]->clientWrite(toSend);
 		this->_client[this->playerRoom[room][1]]->clientWrite(toSend);
 
-		array = { "C_LEAVE", "MainMenu" };
-		auto toSendToQuit = packetBuilder(array);
-		this->_client[this->playerRoom[room][0]]->clientWrite(toSendToQuit);
-		this->_client[this->playerRoom[room][1]]->clientWrite(toSendToQuit);
+		if (this->_client[this->playerRoom[room][0]]->getHost())
+			this->_client[this->playerRoom[room][0]]->setHost();
+		if (this->_client[this->playerRoom[room][1]]->getHost())
+			this->_client[this->playerRoom[room][1]]->setHost();
 
 		delete(&this->playerRoom[room]);
 		this->playerRoom.erase(room);
@@ -216,6 +216,9 @@ void Server::playerleaveRace(Packet cmd)
 			this->_client[player2]->setHost();
 		if (this->_client[player1]->getHost())
 			this->_client[player1]->setHost();
+
+		this->_client[player1]->setIsReady();
+		this->_client[player2]->setIsReady();
 	
 		this->playerRoom.erase(room);
 	}
